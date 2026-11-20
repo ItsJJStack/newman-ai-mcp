@@ -1,0 +1,44 @@
+name: Feature request
+description: Suggest a capability or improvement for newman-ai-mcp.
+title: "[Feature]: "
+labels: [enhancement, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us understand the problem and who it affects before proposing a solution.
+        Please review your submission and remove secrets or private API/collection data.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem should this solve?
+      description: Describe what you are trying to do and where the current tools get in the way.
+    validations:
+      required: true
+  - type: textarea
+    id: users
+    attributes:
+      label: Who does this affect?
+      description: For example, a particular workflow, MCP client, or all users.
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: Workarounds or alternatives tried
+    validations:
+      required: false
+  - type: textarea
+    id: tradeoffs
+    attributes:
+      label: Why is this worth the added complexity?
+      description: Optional. What maintenance or usability trade-offs should we consider?
+    validations:
+      required: false
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Possible approach
+      description: Optional. A solution proposal is not required; maintainers will assess the design if the problem is accepted.
+    validations:
+      required: false

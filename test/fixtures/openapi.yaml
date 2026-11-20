@@ -1,0 +1,75 @@
+openapi: 3.0.3
+info:
+  title: Demo API
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:3000
+tags:
+  - name: Auth
+  - name: Users
+paths:
+  /login:
+    post:
+      tags: [Auth]
+      operationId: login
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            example: { username: ana, password: secret }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          description: Invalid credentials
+  /users/{id}:
+    get:
+      tags: [Users]
+      operationId: getUser
+      summary: Get user
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer, example: 7 }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized
+components:
+  securitySchemes:
+    bearerAuth: { type: http, scheme: bearer }
+  schemas:
+    LoginRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username: { type: string }
+        password: { type: string }
+    Token:
+      type: object
+      required: [token, expiresIn]
+      properties:
+        token: { type: string }
+        expiresIn: { type: integer, example: 3600 }
+    User:
+      type: object
+      required: [id, name]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        email: { type: string, format: email, nullable: true }

@@ -1,0 +1,63 @@
+name: Bug report
+description: Report a reproducible problem with newman-ai-mcp.
+title: "[Bug]: "
+labels: [bug, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting this. Reproduction details help us find the cause faster.
+        Remove credentials, tokens, private collection/environment data, and personal information before posting logs.
+  - type: textarea
+    id: goal
+    attributes:
+      label: What were you trying to do?
+      description: Describe your task, not just the error.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened?
+      description: Include the command/tool, sanitized output, and error message.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Provide the shortest reproducible steps and sanitized sample inputs if possible.
+      placeholder: |
+        1. Start the MCP server with ...
+        2. Call the `...` tool with ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: newman-ai-mcp version
+      description: Include the output of `newman-ai-mcp --version` if available, or write unknown.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Runtime environment
+      description: Node.js version, OS, MCP client, and Newman/Postman version if relevant.
+      placeholder: Node.js 22, Windows 11, OpenCode, Newman 6.x
+    validations:
+      required: true
+  - type: textarea
+    id: configuration
+    attributes:
+      label: Relevant configuration (redacted)
+      description: Include relevant non-secret settings. Never paste API keys, tokens, passwords, environment files, or private collection data.
+    validations:
+      required: false

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.engram/
+.env
+.env.*
+!.env.example
+**/.tmp/
+.vitest/

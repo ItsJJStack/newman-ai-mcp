@@ -1,0 +1,48 @@
+{
+  "name": "newman-ai-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for automated QA with Postman/Newman — 9 tools, 3 AI-powered with swappable providers (local Qwen3.5-2B or OpenAI-compatible)",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ItsJJStack/newman-ai-mcp.git"
+  },
+  "homepage": "https://github.com/ItsJJStack/newman-ai-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/ItsJJStack/newman-ai-mcp/issues"
+  },
+  "files": [
+    "dist/"
+  ],
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "bin": { "newman-ai-mcp": "dist/index.js" },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "download": "node dist/index.js --download",
+    "check-llm": "node dist/index.js --check-llm"
+  },
+  "dependencies": {
+    "@apidevtools/swagger-parser": "~13.1.0",
+    "@modelcontextprotocol/sdk": "~1.32.2",
+    "ajv": "~8.20.0",
+    "newman": "6.2.3",
+    "node-llama-cpp": "~3.22.3",
+    "openapi-to-postmanv2": "~6.4.3",
+    "yaml": "~2.9.1",
+    "zod": "~4.6.7"
+  },
+  "optionalDependencies": {
+    "newman-reporter-htmlextra": "~1.23.1"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/inspector": "~2.15.0",
+    "@types/newman": "~5.3.6",
+    "@types/node": "^22",
+    "typescript": "~7.0.2",
+    "vitest": "~5.1.0"
+  }
+}

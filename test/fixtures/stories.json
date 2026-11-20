@@ -1,0 +1,14 @@
+[
+  { "id": "gherkin-es",
+    "userStory": "Como usuario quiero iniciar sesión para obtener un token.\n\nEscenario: login válido\n  Dado un usuario registrado\n  Cuando envía usuario y contraseña correctos\n  Entonces recibe un token\n\nEscenario: contraseña incorrecta\n  Dado un usuario registrado\n  Cuando envía una contraseña incorrecta\n  Entonces recibe 401\n  Y no recibe token",
+    "expected": { "source": "gherkin", "count": 2 } },
+  { "id": "gherkin-en-no-scenario-keyword",
+    "userStory": "As a user I want to log in.\nGiven valid credentials\nWhen I call login\nThen I get a token\nGiven a wrong password\nWhen I call login\nThen I get 401",
+    "expected": { "source": "gherkin", "count": 2 } },
+  { "id": "list-es",
+    "userStory": "Como usuario quiero iniciar sesión.\n\n**Criterios de aceptación:**\n- Con credenciales válidas obtengo un token\n- Si la contraseña es incorrecta no recibo token\n  y la respuesta es 401\n1) El token expira en 3600 segundos\n\nNotas: usar el ambiente de QA",
+    "expected": { "source": "list", "count": 3 } },
+  { "id": "free-text",
+    "userStory": "Quiero probar que el login funcione y que no deje entrar con contraseña mala.",
+    "expected": { "source": "none", "count": 0 } }
+]

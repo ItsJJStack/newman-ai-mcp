@@ -1,0 +1,3 @@
+_scenario,_expectedStatus,username,password,userId
+valid login,200,ana,secret,7
+wrong password,401,ana,wrong,7

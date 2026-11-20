@@ -1,0 +1,168 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CI/CD templates > generates a stable azure-devops template 1`] = `
+{
+  "content": "trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install -g newman@6.2.3 
+    mkdir -p newman
+    
+    npx newman run collection.json --reporters junit,json --reporter-junit-export newman/results.xml --reporter-json-export newman/results.json
+  displayName: 'Run Newman Tests'
+  env:
+    POSTMAN_API_KEY: $(POSTMAN_API_KEY)
+  condition: always()
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'newman/results.xml'
+    mergeTestResults: true
+  condition: always()
+  displayName: 'Publish Test Results'
+",
+  "requiredSecrets": [],
+  "suggestedPath": "azure-pipelines.yml",
+}
+`;
+
+exports[`CI/CD templates > generates a stable dockerfile template 1`] = `
+{
+  "content": "FROM node:20-alpine
+WORKDIR /app
+RUN npm install -g newman@6.2.3 
+COPY . /app
+RUN mkdir -p newman
+CMD npx newman run collection.json --reporters junit,json --reporter-junit-export newman/results.xml --reporter-json-export newman/results.json
+",
+  "requiredSecrets": [],
+  "suggestedPath": "Dockerfile",
+}
+`;
+
+exports[`CI/CD templates > generates a stable github-actions template 1`] = `
+{
+  "content": "name: Newman API Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js \${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Newman & Reporters
+        run: npm install -g newman@6.2.3 
+
+      - name: Run Newman Tests
+        id: newman
+        continue-on-error: true
+        env:
+          POSTMAN_API_KEY: \${{ secrets.POSTMAN_API_KEY }}
+        run: |
+          mkdir -p newman
+          npx newman run collection.json --reporters junit,json --reporter-junit-export newman/results.xml --reporter-json-export newman/results.json
+
+      - name: Publish Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Newman Tests
+          path: newman/results.xml
+          reporter: jest-junit
+
+      - name: Upload Report Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: newman-reports
+          path: newman/
+
+      - name: Check Newman Status
+        if: steps.newman.outcome != 'success'
+        run: exit 1
+",
+  "requiredSecrets": [],
+  "suggestedPath": ".github/workflows/newman.yml",
+}
+`;
+
+exports[`CI/CD templates > generates a stable gitlab-ci template 1`] = `
+{
+  "content": "stages:
+  - test
+
+newman_test:
+  stage: test
+  image: node:20-alpine
+  script:
+    - mkdir -p newman
+    - npm install -g newman@6.2.3 
+    
+    - npx newman run collection.json --reporters junit,json --reporter-junit-export newman/results.xml --reporter-json-export newman/results.json
+  artifacts:
+    when: always
+    reports:
+      junit: newman/results.xml
+    paths:
+      - newman/
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "merge_request_event"'
+",
+  "requiredSecrets": [],
+  "suggestedPath": ".gitlab-ci.yml",
+}
+`;
+
+exports[`CI/CD templates > generates a stable jenkins template 1`] = `
+{
+  "content": "pipeline {
+    agent any
+    environment {
+        POSTMAN_API_KEY = credentials('POSTMAN_API_KEY')
+    }
+    stages {
+        stage('Test') {
+            steps {
+                sh '''
+                    npm install -g newman@6.2.3 
+                    mkdir -p newman
+                    
+                    npx newman run collection.json --reporters junit,json --reporter-junit-export newman/results.xml --reporter-json-export newman/results.json
+                '''
+            }
+            post {
+                always {
+                    junit 'newman/results.xml'
+                    archiveArtifacts artifacts: 'newman/**'
+                }
+            }
+        }
+    }
+}
+",
+  "requiredSecrets": [],
+  "suggestedPath": "Jenkinsfile",
+}
+`;

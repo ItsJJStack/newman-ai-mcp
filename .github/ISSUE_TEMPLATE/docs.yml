@@ -1,0 +1,26 @@
+name: Documentation
+description: Report documentation that is incorrect, missing, or unclear.
+title: "[Docs]: "
+labels: [documentation, needs-triage]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Where is the documentation?
+      description: Link a page or name the file and section.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong or missing?
+      description: Explain what made the current documentation incorrect or hard to use.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: What should it say instead?
+      description: Optional. Include a correction or source if known.
+    validations:
+      required: false

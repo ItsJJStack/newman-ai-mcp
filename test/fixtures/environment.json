@@ -1,0 +1,8 @@
+{
+  "name": "demo",
+  "values": [
+    { "key": "username", "value": "ana", "enabled": true },
+    { "key": "password", "value": "secret", "enabled": true },
+    { "key": "userId", "value": "7", "enabled": true }
+  ]
+}

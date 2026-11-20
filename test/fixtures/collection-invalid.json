@@ -1,0 +1,33 @@
+{
+  "info": {
+    "name": "Invalid scripts",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Top-level await",
+      "event": [{ "listen": "test", "script": { "exec": ["const r = await pm.sendRequest('https://example.com');"] } }],
+      "request": { "method": "GET", "url": "{{baseUrl}}/a" }
+    },
+    {
+      "name": "Template in JS",
+      "event": [{ "listen": "test", "script": { "exec": ["const id = {{userId}};"] } }],
+      "request": { "method": "GET", "url": "{{baseUrl}}/b" }
+    },
+    {
+      "name": "Forbidden APIs",
+      "event": [{ "listen": "prerequest", "script": { "exec": ["const c = require('crypto');", "fetch('https://example.com');", "window.alert('x');"] } }],
+      "request": { "method": "GET", "url": "{{baseUrl}}/c" }
+    },
+    {
+      "name": "Wrong pm API",
+      "event": [{ "listen": "test", "script": { "exec": ["pm.environmentVariables.set('a', 'b');"] } }],
+      "request": { "method": "GET", "url": "{{baseUrl}}/d" }
+    },
+    {
+      "name": "Runtime and undefined variables",
+      "event": [{ "listen": "test", "script": { "exec": ["pm.collectionVariables.set('sessionId', '1');"] } }],
+      "request": { "method": "GET", "url": "{{baseUrl}}/e?s={{sessionId}}&x={{neverDefined}}&g={{$guid}}" }
+    }
+  ]
+}

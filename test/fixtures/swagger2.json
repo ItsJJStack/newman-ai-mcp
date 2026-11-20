@@ -1,0 +1,26 @@
+{
+  "swagger": "2.0",
+  "info": { "title": "Demo API v2", "version": "1.0.0" },
+  "host": "127.0.0.1:3000",
+  "schemes": ["http"],
+  "paths": {
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "integer" }],
+        "responses": {
+          "200": { "description": "OK", "schema": { "$ref": "#/definitions/User" } },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": { "id": { "type": "integer" }, "name": { "type": "string" }, "email": { "type": "string" } }
+    }
+  }
+}
