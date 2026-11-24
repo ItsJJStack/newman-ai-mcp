@@ -1,6 +1,7 @@
 # Sensitive areas require review from the owner.
-/.github/workflows/ @ItsJJStack/maintainers
-/SECURITY.md @ItsJJStack/maintainers
-/src/config.ts @ItsJJStack/maintainers
-/src/llm/ @ItsJJStack/maintainers
-/src/postman/ @ItsJJStack/maintainers
+/.github/CODEOWNERS @ItsJJStack/owners
+/.github/workflows/ @ItsJJStack/owners
+/SECURITY.md @ItsJJStack/owners
+/src/config.ts @ItsJJStack/owners
+/src/llm/ @ItsJJStack/owners
+/src/postman/ @ItsJJStack/owners
